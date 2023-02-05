@@ -4,7 +4,7 @@ pipeline {
      stages {
          stage('Checkout') {
              steps {
-                 git branch: 'main', url: 'https://github.com/utrains/jenkins-terraform-aws'
+                 git branch: 'main', url: 'https://github.com/patangana/jenkins-terraform-aws.git'
              }
          }
          stage('Checkov') {
@@ -12,7 +12,7 @@ pipeline {
                  script {
                      docker.image('bridgecrew/checkov:latest').inside("--entrypoint=''") {
                          try {
-                             sh 'checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --repo-id utrains/jenkins-terraform-aws --branch main --bc-api-key 05494e55-12fc-482a-a645-52cb45a692f0'
+                             sh 'checkov -d . --use-enforcement-rules -o cli -o junitxml --output-file-path console,results.xml --repo-id utrains/jenkins-terraform-aws --branch main --bc-api-key 81765d74-7448-419d-b97e-758078a64b7c'
                              junit skipPublishingChecks: true, testResults: 'results.xml'
                          } catch (err) {
                              junit skipPublishingChecks: true, testResults: 'results.xml'
